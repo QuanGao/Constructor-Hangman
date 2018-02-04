@@ -21,4 +21,6 @@ function Letter(char, guessed) {
     }
 }
 
-
+module.exports = {
+    Letter: Letter
+}
