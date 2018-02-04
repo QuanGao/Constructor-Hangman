@@ -4,7 +4,7 @@ function isLetter(x){
 function Letter(char, guessed) {
     this.char = char;
     this.guessed = guessed;
-    this.convert = function () {
+    this.toString = function () {
         if (this.guessed) {
             return this.char;
         } else {

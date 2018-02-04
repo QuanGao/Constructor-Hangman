@@ -1,19 +1,38 @@
 let letterCons = require("./Letter.js").Letter
 
-let y = new letterCons("b", false)
-
 
 function Word(word) {
-    this.word = word;
-    this.letterArr = function () {
-        let arr = this.word.split("");
+    this.getObjArr = function () {
+        let arr = word.split("");  
         arr.forEach((letter, index) => {
-                return arr[index] = new letterCons(letter, false)
-        })
-    console.log(arr[1])
-}
+            return arr[index] = new letterCons(letter, false)    
+        });
+        return arr
+    };
+    this.currentArr = this.getObjArr();
+    this.concat = function () {
+        let objArr = this.currentArr;      
+        return objArr.reduce((a,b)=>a+b)
+
+    };
+    this.guess = function (ltr) {
+        let array = this.currentArr;   
+        array.forEach((letter) => {           
+            letter.check(ltr)
+        
+        });
+
+
+ 
+    }
 
 }
 
 var x = new Word("hello")
-x.letterArr();
+x.guess("l")
+x.guess("e")
+
+
+console.log("x word is " + x.currentArr)
+console.log("x concat is " + x.concat())
+console.log("x objarr is " + x.getObjArr())
