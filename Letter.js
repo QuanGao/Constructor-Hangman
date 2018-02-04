@@ -1,6 +1,9 @@
+function isLetter(x){
+	return(/^[a-zA-Z]$/.test(x))
+};
 function Letter(char, guessed) {
     this.char = char;
-    this.guessed = false;
+    this.guessed = guessed;
     this.convert = function () {
         if (this.guessed) {
             return this.char;
@@ -9,10 +12,13 @@ function Letter(char, guessed) {
         };
     };
     this.check = function (guess) {
-        if (this.char === guess) {
+        if (!isLetter(guess)){
+            console.log("only letters are allowed!")
+        } else if (this.char === guess.toLowerCase()) {
             this.guessed = true;
         }
+        console.log(this.guessed)
     }
 }
 
-let x = new Letter ("a")
+
