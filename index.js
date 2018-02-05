@@ -1,12 +1,12 @@
-function isLetter(x){
-	return(/^[a-zA-Z]$/.test(x))
+function isLetter(x) {
+    return (/^[a-zA-Z]$/.test(x))
 };
 
 const Word = require("./Word.js").Word;
 const inq = require("inquirer");
 console.log("index.js is loaded");
 
-const words = ["apple", "orange", "grapes", "banana", "peach", "watermelon", "cherry","pineapple","durian", "plum"]
+const words = ["apple", "orange", "grapes", "banana", "peach", "watermelon", "cherry", "pineapple", "durian", "plum"]
 // let chooseWord = function(){ 
 //      let randomIndex = Math.floor(words.length * Math.random())
 //      let randomWord = new Word (words[randomIndex], false);  
@@ -16,31 +16,44 @@ const words = ["apple", "orange", "grapes", "banana", "peach", "watermelon", "ch
 
 let wrongGuesses = [];
 let lives = 5;
-inq.prompt([
-    {
-        type: "confirm",
-        name: "ready",
-        message: "Are you ready for some Hangman?",
-    },
-]).then(function(confirmation){
-    if(confirmation.ready){
+
+inq.prompt([{
+    type: "confirm",
+    name: "ready",
+    message: "Are you ready for some Hangman?",
+}, ]).then(function (confirmation) {
+    if (confirmation.ready) {
         console.log("ready");
         let randomIndex = Math.floor(words.length * Math.random())
-        let randomWord = new Word (words[randomIndex], false);
-        
-        inq.prompt([
-            {
+        let randomWord = new Word(words[randomIndex], false);
+
+        if (lives > 0) {
+            inq.prompt([{
                 type: "input",
-                name: "guess",
+                name: "attempt",
                 message: `${randomWord.concat()}\nyour guess (one letter please): `,
-                validate: function validateGuess(name){
+                validate: function validateGuess(name) {
                     return isLetter(name) && name.length === 1;
                 }
-            }
-]).then(a=>console.log(a.guess))
+            }]).then(a => {
+                let isCorrect = randomWord.guess(a.attempt);
+                console.log(isCorrect)
+                if (!isCorrect) {
+                    lives--;
+                    wrongGuesses.push(a.attempt);
+                }
+                console.log("lives: "+lives);
+                console.log("wrongGusses: " + wrongGuesses)
+                console.log(randomWord.concat());
 
 
-    } else{console.log("Take a deep breath & get ready!")}
+            })
+        }
+
+
+    } else {
+        console.log("Take a deep breath & get ready!")
+    }
 })
 
 

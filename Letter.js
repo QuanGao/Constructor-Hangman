@@ -12,7 +12,7 @@ function Letter(char, guessed) {
         if (this.char === guess.toLowerCase()) {
             this.guessed = true;
         }
-        console.log(this.guessed)
+        // console.log(this.guessed)
     }
 }
 

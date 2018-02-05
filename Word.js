@@ -13,9 +13,12 @@ function Word(word) {
         return this.currentArr.reduce((a, b) => a + b)
     };
     this.guess = function (ltr) {
+        let atLeastOneHit = false;
         this.currentArr.forEach((letter) => {
-            letter.check(ltr)
+            letter.check(ltr);
+            atLeastOneHit = atLeastOneHit || letter.guessed;
         });
+        return atLeastOneHit;
     }
 }
 
