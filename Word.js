@@ -1,6 +1,7 @@
 const letterCons = require("./Letter.js").Letter
 
 function Word(word) {
+    this.answer = word;
     this.getObjArr = function () {
         let arr = word.split("");
         arr.forEach((letter, index) => {
@@ -15,8 +16,8 @@ function Word(word) {
     this.guess = function (ltr) {
         let atLeastOneHit = false;
         this.currentArr.forEach((letter) => {
-            letter.check(ltr);
-            atLeastOneHit = atLeastOneHit || letter.guessed;
+            atLeastOneHit = atLeastOneHit || letter.check(ltr);
+            console.log(letter.check(ltr))
         });
         return atLeastOneHit;
     }

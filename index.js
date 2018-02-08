@@ -6,77 +6,76 @@ const Word = require("./Word.js").Word;
 const inq = require("inquirer");
 console.log("index.js is loaded");
 
-const words = ["apple", "orange", "grapes", "banana", "peach", "watermelon", "cherry", "pineapple", "durian", "plum"]
-
+const words = ["apple", "banana", "peech"]
+let wrongGuesses = [];
+let allGuesses = [];
+let lives = 5;
 
 let promptGuess = function(word){
     if (lives > 0) {
         inq.prompt([{
             type: "input",
             name: "attempt",
-            message: `${word.concat()}\nyour guess (one letter please): `,
+            message: `Guess a letter!`,
             validate: function validateGuess(name) {
-                return isLetter(name) && name.length === 1;
+                return isLetter(name) && name.length === 1 && allGuesses.indexOf(name) === -1;
             }
         }]).then(a => {
             let isCorrect = word.guess(a.attempt);
+            allGuesses.push(a.attempt)
             console.log(isCorrect)
             if (!isCorrect) {
                 lives--;
                 wrongGuesses.push(a.attempt);
+                console.log("Incorrect!");
+                console.log(`Remaining guesses: ${lives}`)
+            } else {
+                console.log("correct!")
             }
-            console.log("lives: "+lives);
             console.log("wrongGusses: " + wrongGuesses)
             console.log(word.concat());
-            promptGuess(word)
+            if(word.answer === word.concat()){
+                allGuesses = [];
+                wrongGuesses = [];
+                lives = 5;
+                if(words.length > 0){
+                    console.log("you got it! Next word!")
+                    playGame();
+                } else {
+                    console.log("you've finish all the words")
+                }
+                
+            } else {
+                promptGuess(word)
+            }      
 
         })
     } else {
-        console.log("too many failed attempts")
+        console.log("You've used all the guesses")
+        console.log(`The word is ${word.answer}`)
     }
 }
-let wrongGuesses = [];
-let lives = 5;
 
-inq.prompt([{
-    type: "confirm",
-    name: "ready",
-    message: "Are you ready for some Hangman?",
-}, ]).then(function (confirmation) {
-    if (confirmation.ready) {
-        console.log("ready");
-        let randomIndex = Math.floor(words.length * Math.random())
-        let randomWord = new Word(words[randomIndex], false);
-        words.splice(randomIndex,1)
-        promptGuess(randomWord);
-        // if (lives > 0) {
-        //     inq.prompt([{
-        //         type: "input",
-        //         name: "attempt",
-        //         message: `${randomWord.concat()}\nyour guess (one letter please): `,
-        //         validate: function validateGuess(name) {
-        //             return isLetter(name) && name.length === 1;
-        //         }
-        //     }]).then(a => {
-        //         let isCorrect = randomWord.guess(a.attempt);
-        //         console.log(isCorrect)
-        //         if (!isCorrect) {
-        //             lives--;
-        //             wrongGuesses.push(a.attempt);
-        //         }
-        //         console.log("lives: "+lives);
-        //         console.log("wrongGusses: " + wrongGuesses)
-        //         console.log(randomWord.concat());
-
-        //     })
-        // }
+let playGame = function(){   
+    let randomIndex = Math.floor(words.length * Math.random())
+    let randomWord = new Word(words[randomIndex], false);
+    words.splice(randomIndex,1)
+    console.log(randomWord.concat());
+    promptGuess(randomWord);    
+}
+playGame();
+        
+    
 
 
-    } else {
-        console.log("Take a deep breath & get ready!")
-    }
-})
 
+// if(round === 0){
+//     inq.prompt([{
+//         type: "confirm",
+//         name: "ready",
+//         message: "Are you ready for some Hangman?",
+//     }, ]).then(function (confirmation) {
+// })
 
 
 

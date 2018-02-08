@@ -11,8 +11,11 @@ function Letter(char, guessed) {
     this.check = function (guess) {
         if (this.char === guess.toLowerCase()) {
             this.guessed = true;
+            return true;
+        } else {
+            return false;
         }
-        // console.log(this.guessed)
+       
     }
 }
 
