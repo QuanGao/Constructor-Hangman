@@ -9,7 +9,7 @@ function Letter(char, guessed) {
         };
     };
     this.check = function (guess) {
-        if (this.char === guess.toLowerCase()) {
+        if (this.char.toLowerCase() === guess.toLowerCase()) {
             this.guessed = true;
             return true;
         } else {
