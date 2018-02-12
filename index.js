@@ -42,9 +42,7 @@ let promptGuess = function(word,words){
             if(word.answer === word.concat()){
                 wins++;
                 console.log("You got it!")
-                nextWord(words);
-                
-                
+                nextWord(words);            
             } else {
                 promptGuess(word,words)
             }      
@@ -52,9 +50,8 @@ let promptGuess = function(word,words){
         })
     } else {
         losses ++;
-        console.log(`\nYou lose! The word is ${word.answer}.`)
-        nextWord(words);
-      
+        console.log(`You lose! The word is ${word.answer}.`)
+        nextWord(words);    
     }
 }
 
@@ -67,7 +64,7 @@ let nextWord = function(words){
         playGame(words);
     } else {
         console.log("\nyou've finish all the words");
-        console.log(`\nwins: ${wins} | losses:${losses}`);
+        console.log(`\nwins: ${wins} | losses:${losses}\n`);
         startGame()
     }
 }
@@ -81,6 +78,8 @@ let playGame = function(words){
 }
 
 let startGame = function(){
+    wins = 0;
+    losses = 0;
     inq.prompt([{
         type: "list",
         name: "choice",
@@ -92,10 +91,10 @@ let startGame = function(){
                 playGame(easyWords);
                 break;
             case "medium - 5 Game of Thrones characters":
-            playGame(mediumWords)
+                playGame(mediumWords)
                 break;
             case "hard - 5 Harry Potter magic spells":
-            playGame(hardWords);
+                playGame(hardWords);
                 break;
             default:
                 console.log("\nNext Time!\n")
