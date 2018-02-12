@@ -5,7 +5,9 @@ function Word(word) {
     this.getObjArr = function () {
         let arr = word.split("");
         arr.forEach((letter, index) => {
-            return arr[index] = new letterCons(letter, false)
+            if(letter != " "){
+                return arr[index] = new letterCons(letter, false);
+            }
         });
         return arr
     };
@@ -16,8 +18,10 @@ function Word(word) {
     this.guess = function (ltr) {
         let atLeastOneHit = false;
         this.currentArr.forEach((letter) => {
-            letter.check(ltr);
-            atLeastOneHit = atLeastOneHit || letter.check(ltr);        
+            if(letter !=" "){
+                letter.check(ltr);
+                atLeastOneHit = atLeastOneHit || letter.check(ltr);
+            }        
         });
         return atLeastOneHit;
     }

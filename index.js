@@ -4,12 +4,14 @@ function isLetter(x) {
 
 const Word = require("./Word.js");
 const inq = require("inquirer");
-console.log("index.js is loaded");
+console.log("Welcome to hangman!");
 
-const words = ["apple", "banana", "peech"]
+const words = ["apple pie", "banana bread", "peach cobbler"]
 let wrongGuesses = [];
 let allGuesses = [];
 let lives = 5;
+let wins = 0;
+let losses = 0;
 
 let promptGuess = function(word){
     if (lives > 0) {
@@ -23,16 +25,16 @@ let promptGuess = function(word){
         }]).then(a => {
             let isCorrect = word.guess(a.attempt);
             allGuesses.push(a.attempt)
-            console.log(isCorrect)
             if (!isCorrect) {
                 lives--;
                 wrongGuesses.push(a.attempt);
-                console.log("Incorrect!");
-                console.log(`Remaining guesses: ${lives}`)
+                console.log(`Incorrect! Remaining guesses: ${lives}`)
             } else {
                 console.log("correct!")
             }
-            console.log("wrongGusses: " + wrongGuesses)
+            if(wrongGuesses.length>0){
+                console.log("wrongGusses: " + wrongGuesses)
+            }
             console.log(word.concat());
             if(word.answer === word.concat()){
                 allGuesses = [];
@@ -40,9 +42,12 @@ let promptGuess = function(word){
                 lives = 5;
                 if(words.length > 0){
                     console.log("you got it! Next word!")
+                    wins++;
                     playGame();
                 } else {
-                    console.log("you've finish all the words")
+                    console.log("you've finish all the words");
+                    console.log(`wins: ${wins} | losses:${losses}`);
+
                 }
                 
             } else {
@@ -51,8 +56,9 @@ let promptGuess = function(word){
 
         })
     } else {
-        console.log("You've used all the guesses")
-        console.log(`The word is ${word.answer}`)
+        console.log("You've used all the guesses");
+        console.log(`The correct answer is ${word.answer}`);
+        losses ++;
     }
 }
 
@@ -65,25 +71,3 @@ let playGame = function(){
 }
 playGame();
         
-    
-
-
-
-// if(round === 0){
-//     inq.prompt([{
-//         type: "confirm",
-//         name: "ready",
-//         message: "Are you ready for some Hangman?",
-//     }, ]).then(function (confirmation) {
-// })
-
-
-
-// var x = new Word("hello")
-// console.log("x word is " + x.currentArr)
-// console.log("x concat is " + x.concat())
-// x.guess("l")
-// x.guess("o")
-// x.guess("1")
-// console.log("x word is " + x.currentArr)
-// console.log("x concat is " + x.concat())
