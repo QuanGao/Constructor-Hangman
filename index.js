@@ -2,7 +2,7 @@ function isLetter(x) {
     return (/^[a-zA-Z]$/.test(x))
 };
 
-const Word = require("./Word.js").Word;
+const Word = require("./Word.js");
 const inq = require("inquirer");
 console.log("index.js is loaded");
 

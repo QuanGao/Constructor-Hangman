@@ -1,4 +1,4 @@
-const letterCons = require("./Letter.js").Letter
+const letterCons = require("./Letter.js")
 
 function Word(word) {
     this.answer = word;
@@ -16,23 +16,14 @@ function Word(word) {
     this.guess = function (ltr) {
         let atLeastOneHit = false;
         this.currentArr.forEach((letter) => {
-            atLeastOneHit = atLeastOneHit || letter.check(ltr);
-            console.log(letter.check(ltr))
+            letter.check(ltr);
+            atLeastOneHit = atLeastOneHit || letter.check(ltr);        
         });
         return atLeastOneHit;
     }
 }
 
-module.exports = {
-    Word: Word
-}
+module.exports = Word;
 
-// var x = new Word("hello")
-// console.log("x word is " + x.currentArr)
-// console.log("x concat is " + x.concat())
-// x.guess("l")
-// x.guess("e")
-// x.guess("1")
-// console.log("x word is " + x.currentArr)
-// console.log("x concat is " + x.concat())
+
 

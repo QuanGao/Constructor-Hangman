@@ -14,11 +14,8 @@ function Letter(char, guessed) {
             return true;
         } else {
             return false;
-        }
-       
+        }     
     }
 }
 
-module.exports = {
-    Letter: Letter
-}
+module.exports = Letter;
