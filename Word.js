@@ -4,12 +4,10 @@ function Word(word) {
     this.answer = word;
     this.getObjArr = function () {
         let arr = word.split("");
-        arr.forEach((letter, index) => {
-            if(letter != " "){
-                return arr[index] = new letterCons(letter, false);
-            }
+        let objArr = arr.map(letter => {
+            return letter === " " ? letter: new letterCons(letter, false);
         });
-        return arr;
+        return objArr
     }
     this.currentArr = this.getObjArr();
     this.concat = function () {
