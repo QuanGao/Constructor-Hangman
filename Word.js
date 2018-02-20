@@ -9,8 +9,8 @@ function Word(word) {
                 return arr[index] = new letterCons(letter, false);
             }
         });
-        return arr
-    };
+        return arr;
+    }
     this.currentArr = this.getObjArr();
     this.concat = function () {
         return this.currentArr.reduce((a, b) => a + b)
@@ -18,16 +18,13 @@ function Word(word) {
     this.guess = function (ltr) {
         let atLeastOneHit = false;
         this.currentArr.forEach((letter) => {
-            if(letter !=" "){
+            if (letter != " ") {
                 letter.check(ltr);
                 atLeastOneHit = atLeastOneHit || letter.check(ltr);
-            }        
+            }
         });
         return atLeastOneHit;
     }
 }
 
 module.exports = Word;
-
-
-

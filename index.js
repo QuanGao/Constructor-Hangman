@@ -3,7 +3,7 @@ function isLetter(x) {
 };
 
 const Word = require("./Word.js");
-const inq = require("inquirer");
+const inquirer = require("inquirer");
 console.log("\nWelcome to hangman!\n");
 
 const easyWords = ["apple pie", "banana bread", "peach cobbler", "blueberry muffin", "strawberry shortcake"]
@@ -15,9 +15,9 @@ let lives = 5;
 let wins = 0;
 let losses = 0;
 
-let promptGuess = function(word,words){
+const promptGuess = function(word,words){
     if (lives > 0) {
-        inq.prompt([{
+        inquirer.prompt([{
             type: "input",
             name: "attempt",
             message: `Guess a letter!`,
@@ -55,7 +55,7 @@ let promptGuess = function(word,words){
     }
 }
 
-let nextWord = function(words){
+const nextWord = function(words){
     allGuesses = [];
     wrongGuesses = [];
     lives = 5;
@@ -69,7 +69,7 @@ let nextWord = function(words){
     }
 }
 
-let playGame = function(words){   
+const playGame = function(words){   
     let randomIndex = Math.floor(words.length * Math.random())
     let randomWord = new Word(words[randomIndex], false);
     words.splice(randomIndex,1)
@@ -77,10 +77,10 @@ let playGame = function(words){
     promptGuess(randomWord,words);    
 }
 
-let startGame = function(){
+const startGame = function(){
     wins = 0;
     losses = 0;
-    inq.prompt([{
+    inquirer.prompt([{
         type: "list",
         name: "choice",
         message: "What level would you like to play?",
